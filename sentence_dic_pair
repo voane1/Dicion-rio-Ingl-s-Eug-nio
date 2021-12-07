@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#the script creates a file with the sentence pairs. the file has a pair of phrases in each line and their occurrences in the corpus. In each sentence, the spaces between words are replaced by the character '|'. The file is sorted alphabetically.
+
+reset () {
+rm -f ~/Desktop/tg1/sentence_dic/sentences_pair.txt
+}
+
+dict_with_character_pair (){
+cat ~/Desktop/tg1/corpus_txt/*|sed -e 's/[^[:alpha:]]/ /g;s/[ \t]*// ; s/ *$//'| grep -v "^$" | tr 'A-Z' 'a-z'| tr -s " " | tr " " "|"| paste -sd' \n' | sort -d | uniq -c | sed '/1/d' | gawk '{
+
+
+print $2 " "  $3 " "  $1;
+}
+
+'  >> ~/Desktop/tg1/sentence_dic/sentences_pair.txt
+}
+reset
+dict_with_character_pair
+
+
+

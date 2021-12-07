@@ -1,0 +1,71 @@
+#!/bin/bash
+
+#This script count all caracter, words and line no empty into the file corpus_txt
+
+reset (){
+rm -f ~/Desktop/tg1/corpus_info/corpus_info.txt
+}
+
+
+caracter()
+{
+find ~/Desktop/tg1/corpus_txt -name '*.txt' -exec cat '{}' ';' | wc -m >> ~/Desktop/tg1/corpus_info/corpus_info.txt
+}
+
+lines_Empty()
+{
+grep -v "^$" ~/Desktop/tg1/corpus_txt/* | wc -l >> ~/Desktop/tg1/corpus_info/corpus_info.txt
+}
+
+words()
+{
+word=`find ~/Desktop/tg1/corpus_txt -name '*.txt' -exec cat '{}' ';' | wc -w`
+echo $word >> ~/Desktop/tg1/corpus_info/corpus_info.txt
+
+}
+
+words_Diferent()
+{
+worddif=`sort ~/Desktop/tg1/corpus_txt/* | uniq -u | wc -w`
+echo $worddif >> ~/Desktop/tg1/corpus_info/corpus_info.txt
+}
+
+quociente()
+{
+echo "scale=4;$word/$worddif"| bc >> ~/Desktop/tg1/corpus_info/corpus_info.txt
+}
+
+count_phrases(){
+x=`cat ~/Desktop/tg1/corpus_txt/* | sed -r '/^\s*$/d'| wc -l `
+echo $x >> ~/Desktop/tg1/corpus_info/corpus_info.txt
+}
+
+count_phrases_diff(){
+y=`cat ~/Desktop/tg1/corpus_txt/* | sed -r '/^\s*$/d' | uniq -u | wc -l`
+echo $y >> ~/Desktop/tg1/corpus_info/corpus_info.txt
+}
+
+total_pharases(){
+echo Quociente entre o total defrases diferentes e o total de frases: >> ~/Desktop/tg1/corpus_info/corpus_info.txt
+echo "scale=4;$x/$y"| bc >> ~/Desktop/tg1/corpus_info/corpus_info.txt
+
+}
+
+ reset
+ echo "Número de Caracteres: " >> ~/Desktop/tg1/corpus_info/corpus_info.txt
+ caracter
+ echo "Número de Linhas não vazias: " >> ~/Desktop/tg1/corpus_info/corpus_info.txt
+ lines_Empty
+ echo "Número de palavras: " >> ~/Desktop/tg1/corpus_info/corpus_info.txt
+ words
+ echo "Número de palavras diferentes: " >> ~/Desktop/tg1/corpus_info/corpus_info.txt
+ words_Diferent
+ echo "Quociente entre palavras e palavras diferentes: " >> ~/Desktop/tg1/corpus_info/corpus_info.txt
+ quociente
+ echo "Número de frases: " >> ~/Desktop/tg1/corpus_info/corpus_info.txt
+ count_phrases
+ echo "Número de frases Diferentes:" >> ~/Desktop/tg1/corpus_info/corpus_info.txt
+ count_phrases_diff
+ total_pharases
+
+

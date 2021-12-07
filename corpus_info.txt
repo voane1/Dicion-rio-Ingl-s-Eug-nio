@@ -1,0 +1,16 @@
+Número de Caracteres: 
+16214576
+Número de Linhas não vazias: 
+615437
+Número de palavras: 
+2907268
+Número de palavras diferentes: 
+2796180
+Quociente entre palavras e palavras diferentes: 
+1.0397
+Número de frases: 
+235596
+Número de frases Diferentes:
+229308
+Quociente entre o total defrases diferentes e o total de frases:
+1.0274

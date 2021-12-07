@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#This script creates a file with the pairs ofwords. the script contains on each line a pair ofwords and their occurrences in the corpus. The script isalphabetically ordered.
+
+
+reset (){
+rm -f ~/Desktop/tg1/words_dic/words_pairs.txt
+}
+
+words_pair(){
+cat ~/Desktop/tg1/corpus_txt/* | sed -e 's/[^[:alpha:]]/ /g'  | tr -d '\t' | tr "\n" " " | tr -s " " |tr 'A-Z' 'a-z' | tr " " ", " | gawk -F, '
+{
+   for(i = 1; i < NF; i++){
+    x = i + 1   
+    for (j = x ; j >= i ; j--){
+     a[$i,$j] = $i " " $j;
+      print a[$i, $j];
+        }
+    }
+}'| sort -d | uniq -c | sed '/1/d ; /2/d' | gawk '
+{
+   print $2 " " $3 " " $1;
+
+}' >> ~/Desktop/tg1/words_dic/words_pairs.txt
+}
+
+reset
+words_pair

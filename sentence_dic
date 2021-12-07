@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#This script creates a phrase file. the script contains in each line a sentence and its occurrences in thecorpus. In each sentence, the spaces between words must be replaced by the ‘|’ character. it's ordered alphabetical form.
+
+reset () {
+rm -f ~/Desktop/tg1/sentence_dic/sentences.txt
+}
+
+dict_with_character (){
+cat ~/Desktop/tg1/corpus_txt/*|sed -e 's/[^[:alpha:]]/ /g;s/[ \t]*// ; s/ *$//'| grep -v "^$" | tr 'A-Z' 'a-z'| tr -s " "|tr " " "|" | sort -d | uniq -c|  sed '/1/d'  |  gawk '
+{
+    printf $2;
+     for (i = 1; i < NF; i++) {
+      print " "  $i;
+}
+ }   ' >> ~/Desktop/tg1/sentence_dic/sentences.txt
+}
+
+reset
+dict_with_character

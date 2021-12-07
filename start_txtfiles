@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#This script is made to access the "corpus" directory and create a subfolder that copies all .txt files to that folder
+
+
+cp_txt_corpus()
+{
+find . -type f -name "*.txt" -exec cp -t ~/Desktop/tg1/corpus_txt/ '{}' + 
+}
+
+extrair_zip()
+{
+unzip ~/Downloads/switchboard.zip
+}
+
+
+cd ..
+cd corpus
+extrair_zip
+cd switchboard
+cp_txt_corpus 
+
